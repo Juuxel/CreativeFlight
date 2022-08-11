@@ -1,5 +1,6 @@
 plugins {
     id 'fabric-loom' version '0.13-SNAPSHOT'
+    id 'org.cadixdev.licenser' version '0.6.1'
     id 'maven-publish'
 }
 
@@ -65,6 +66,10 @@ jar {
     from("LICENSE") {
         rename { "${it}_${project.archivesBaseName}" }
     }
+}
+
+license {
+    header = file('HEADER.txt')
 }
 
 // configure the maven publication
