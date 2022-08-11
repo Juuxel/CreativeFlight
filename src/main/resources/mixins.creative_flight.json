@@ -1,0 +1,18 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "juuxel.creativeflight.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "MinecraftMixin",
+    "MobMixin",
+    "OptionsInputMixin",
+    "OptionsMixin",
+    "PlayerMixin"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
