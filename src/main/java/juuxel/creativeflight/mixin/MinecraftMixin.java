@@ -7,9 +7,10 @@
 package juuxel.creativeflight.mixin;
 
 import com.mojang.minecraft.Minecraft;
+import com.mojang.minecraft.gamemode.GameMode;
 import com.mojang.minecraft.gui.InGameHud;
 import com.mojang.minecraft.player.Player;
-import juuxel.creativeflight.FlyExtension;
+import juuxel.creativeflight.PlayerExtension;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -20,11 +21,17 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 abstract class MinecraftMixin {
     @Shadow public Player player;
     @Shadow public InGameHud hud;
+    @Shadow public GameMode gameMode;
+
+    @Inject(method = "tick", at = @At("HEAD"))
+    private void onTickHead(CallbackInfo info) {
+        ((PlayerExtension) player).creativeFlight_setGameMode(gameMode);
+    }
 
     @Inject(method = "tick", at = @At("RETURN"))
-    private void onTick(CallbackInfo info) {
-        FlyExtension ext = (FlyExtension) player;
-        if (ext.creativeFlying_wasFlying() != ext.creativeFlight_isFlying()) {
+    private void onTickReturn(CallbackInfo info) {
+        PlayerExtension ext = (PlayerExtension) player;
+        if (ext.creativeFlight_wasFlying() != ext.creativeFlight_isFlying()) {
             String message = ext.creativeFlight_isFlying() ? "Started flying!" : "Stopped flying!";
             hud.addMessage(message);
         }
