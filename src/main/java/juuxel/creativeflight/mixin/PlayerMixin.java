@@ -53,7 +53,7 @@ abstract class PlayerMixin implements PlayerExtension {
         creativeFlight_gameMode = gameMode;
     }
 
-    @Inject(method = "aiStep", at = @At(value = "INVOKE", target = "Lcom/mojang/minecraft/player/Input;a()V"))
+    @Inject(method = "aiStep", at = @At(value = "INVOKE", target = "Lcom/mojang/minecraft/player/Input;tick()V"))
     private void onAiStep(CallbackInfo info) {
         if (creativeFlight_gameMode instanceof CreativeMode) {
             if (input instanceof FlyExtension) {

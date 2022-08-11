@@ -33,7 +33,7 @@ abstract class OptionsInputMixin extends Input implements FlyExtension {
         return creativeFlight_descending;
     }
 
-    @Inject(method = "a(IZ)V", at = @At("RETURN"))
+    @Inject(method = "setKey", at = @At("RETURN"))
     private void onSetKey(int key, boolean down, CallbackInfo info) {
         if (down && key == CreativeFlight.FLYING_KEYBIND.key) {
             creativeFlight_flying = !creativeFlight_flying;
